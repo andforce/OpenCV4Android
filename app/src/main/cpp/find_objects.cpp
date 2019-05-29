@@ -4,6 +4,15 @@
 #include <opencv2/opencv.hpp>
 #include "cpp_java_utils.h"
 
+#include <stdlib.h>
+
+#include <opencv2/core/utility.hpp>
+#include <opencv2/video/tracking.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+
+#include "opencv2/imgproc/types_c.h"
+
 using namespace cv;
 using namespace std;
 
@@ -92,3 +101,4 @@ Java_com_andforce_opencv4_MainActivity_find_1objects(JNIEnv *env, jclass type, j
 bool isNormal(const vector<vector<Point>> &contours, int i) {
     return contourArea(contours[i]) < 1000;
 }
+

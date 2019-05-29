@@ -58,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BlindMark.blindMark("/sdcard/Pictures/Screenshots/Screenshot_2019-05-28-16-24-47-103.png", "AAAAA");
+            }
+        }).start();
+
         mMaskImageView = findViewById(R.id.maskImageView);
 
         mResultImageView = findViewById(R.id.resultImageView);
