@@ -7,6 +7,6 @@ cmake_minimum_required(VERSION 3.4.1)
 
 
 
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/hellojni)
+ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/helloopencv)
 
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/floodfill)
