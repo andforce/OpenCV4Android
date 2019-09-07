@@ -14,12 +14,12 @@ android {
             cmake {
 //                cppFlags "-frtti -fexceptions"
 //                cppFlags "-std=c++11"
-                arguments "-DANDROID_ARM_NEON=TRUE",'-DANDROID_STL=c++_shared'
+                arguments "-DANDROID_ARM_NEON=TRUE", '-DANDROID_STL=c++_shared'
             }
         }
 
         ndk {
-            abiFilters "armeabi-v7a","x86_64"
+            abiFilters "armeabi-v7a", "x86_64"
         }
     }
     buildTypes {
