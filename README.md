@@ -1,7 +1,7 @@
+![](https://repository-images.githubusercontent.com/188975362/fce2f300-d188-11e9-8267-57f67f941f51)
+
 # Open4Android
 Use OpenCV 4.1.1 with Android Studio 
-
-![](https://repository-images.githubusercontent.com/188975362/fce2f300-d188-11e9-8267-57f67f941f51)
 
 https://opencv.org/android/
 
