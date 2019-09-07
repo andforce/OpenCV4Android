@@ -16,7 +16,7 @@
         android:background="@drawable/repeat_bg"
         tools:ignore="MissingConstraints" />
 
-    <com.andforce.opencv4.FloodFillImageView
+    <com.andforce.opencv.android.FloodFillImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

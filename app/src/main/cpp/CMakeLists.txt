@@ -25,6 +25,9 @@ set_target_properties(opencv_java4
         IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../../../../native/libs/${ANDROID_ABI}/libopencv_java4.so
         )
 
+message(STATUS ">>>>>>>>>>>>>>>>>>>>>>IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../../../../native/libs/${ANDROID_ABI}/libopencv_java4.so")
+
+
 add_library( # Sets the name of the library.
         flood-fill
 
