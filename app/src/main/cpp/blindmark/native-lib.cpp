@@ -531,15 +531,15 @@ Java_com_andforce_opencv_android_BlindMark_blindMark(JNIEnv *env, jclass clazz, 
     LOGD("Java_com_andforce_opencv4_BlindMark_blindMark-----------------%s", path);
 
     Mat image = imread(path, IMREAD_COLOR);
-    imwrite("/storage/emulated/0/Download/src.jpg", image);
+    imwrite("/sdcard/src.jpg", image);
     LOGD("Java_com_andforce_opencv4_BlindMark_blindMark-----------------%s", "start add mark");
     Mat watered = addImageWatermarkWithText(image,mark);
-    imwrite("/storage/emulated/0/Download/watered.jpg", watered);
+    imwrite("/sdcard/watered.jpg", watered);
     //encImage(image, mark);
 
     LOGD("Java_com_andforce_opencv4_BlindMark_blindMark-----------------%s", "get mark");
     Mat water = getImageWatermarkWithText(watered);
-    imwrite("/storage/emulated/0/Download/mark_text.jpg", water);
+    imwrite("/sdcard/mark_text.jpg", water);
 
     env->ReleaseStringUTFChars(path_, path);
     env->ReleaseStringUTFChars(mark_, mark);
