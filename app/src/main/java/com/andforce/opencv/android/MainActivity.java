@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'native-lib' library on application startup.
     static {
-        System.loadLibrary("native-lib");
+        System.loadLibrary("hello_opencv");
     }
 
     @Override
@@ -36,5 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showBlindMark(View view) {
+        Intent intent = new Intent(this, BlindMarkActivity.class);
+        startActivity(intent);
     }
 }

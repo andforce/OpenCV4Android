@@ -5,21 +5,47 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-include_directories(${CMAKE_SOURCE_DIR}/../../../../native/jni/include)
-
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
+set(CMAKE_VERBOSE_MAKEFILE on)
+#set(libs "${CMAKE_SOURCE_DIR}/../../../../native/libs")
+#添加头文件位置
+include_directories(${CMAKE_SOURCE_DIR}/../../../../native/jni/include)
+#引入libopencv_java4.so文件
+add_library(opencv_java4 SHARED IMPORTED)
+
+set_target_properties(opencv_java4
+        PROPERTIES
+        # ${PROJECT_SOURCE_DIR}
+        # ${CMAKE_CURRENT_SOURCE_DIR}
+        # ${CMAKE_SOURCE_DIR}
+        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../../../../native/libs/${ANDROID_ABI}/libopencv_java4.so
+        )
+
+message(STATUS ">>>>>>>>>>>>>>>>>>>>>>IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../../../../native/libs/${ANDROID_ABI}/libopencv_java4.so")
+
+
 add_library( # Sets the name of the library.
-        hello_opencv
+        blind-mark
 
         # Sets the library as a shared library.
         SHARED
 
-        # Provides a relative path to your source file(s).
-        hello_opencv.cpp)
+        vector2ArrayList.cpp
+        mat_map_cvt.cpp
+        native-lib.cpp
+        )
+
+
+# 支持操作Bitmap的库
+find_library( # Sets the name of the path variable.
+        jnigraphics-lib
+        # Specifies the name of the NDK library that
+        # you want CMake to locate.
+        jnigraphics )
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -39,8 +65,11 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-        hello_opencv
+        blind-mark
+        opencv_java4
 
         # Links the target library to the log library
         # included in the NDK.
-        ${log-lib})
+        ${jnigraphics-lib}
+        ${log-lib}
+        )
