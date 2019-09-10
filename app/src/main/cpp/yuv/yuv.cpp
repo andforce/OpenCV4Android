@@ -256,6 +256,21 @@ void getTextFormImage(const String &filename,const String &backfilename) {
     bool res = cv::imwrite(backfilename,backImage);
 }
 
+
+#define CYR     77    // 0.299
+#define CYG     150    // 0.587
+#define CYB      29    // 0.114
+
+#define CUR     -43    // -0.16874
+#define CUG    -85    // -0.33126
+#define CUB     128    // 0.5
+
+#define CVR      128   // 0.5
+#define CVG     -107   // -0.41869
+#define CVB      -21   // -0.08131
+
+#define CSHIFT  8
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_andforce_opencv_android_BitmapColorUtils_convertBitmap2YUV420SP(JNIEnv *env, jclass clazz,
@@ -266,19 +281,78 @@ Java_com_andforce_opencv_android_BitmapColorUtils_convertBitmap2YUV420SP(JNIEnv 
     Mat dstRGB;
     cvtColor(srcRGBA, dstRGB, COLOR_RGBA2RGB);
 
-    Mat mergedRGB;
-    vector<Mat> channels;
-    split(dstRGB, channels);
-    for (int i = 0; i < channels[0].rows; i++) {
-        for (int j = 0; j < channels[0].cols; j++) {
-            channels[0].at<uchar>(i, j) = 0;
+
+
+    vector<Mat> RGB_channels;
+    split(dstRGB, RGB_channels);
+
+    int imageWidth = RGB_channels[0].rows;
+    int imageHeight = RGB_channels[0].cols;
+
+    auto *yuv_buffer = new uint8_t[imageWidth * imageHeight * 3];
+
+    LOGD("convertBitmap2YUV420SP----------------- split OK rgbChannels: %d", RGB_channels.size());
+
+    for (int x = 0; x < imageWidth; x++) {
+        for (int y = 0; y < imageHeight; y++) {
+            //channels[0].at<uchar>(x, y) = 255;
+            auto *o = &yuv_buffer[y * imageWidth * 3 + x * 3];
+
+            int R = RGB_channels[0].at<uchar>(x, y);
+            int G = RGB_channels[1].at<uchar>(x, y);
+            int B = RGB_channels[2].at<uchar>(x, y);
+
+            int Y = (R * CYR + G * CYG + B * CYB) >> CSHIFT;
+            int U = (R * CUR + G * CUG + B * CUB) >> CSHIFT;
+            int V = (R * CVR + G * CVG + B * CVB) >> CSHIFT;
+
+            o[0] = Y;
+            o[1] = U + 128;
+            o[2] = V + 128;
         }
     }
-    merge(channels, mergedRGB);
+
+    Mat mergedRGB;
+    merge(RGB_channels, mergedRGB);
 
     imwrite("/sdcard/convertBitmap2YUV420SP.jpg", mergedRGB);
 
-//    auto *in_buffer = new uint8_t[dstRGB.rows * dstRGB.cols * 3];
+
+    cv::Mat img(imageWidth, imageHeight, CV_8UC3, yuv_buffer);
+    imwrite("/sdcard/convertBitmap2YUV420SP_420sp.jpg", img);
+
+
+    // 读取存储YUV -> jpg
+//    cv::Size actual_size(1920, 1080);
+//    cv::Size half_size(960, 540);
+//
+//    //Read y, u and v in bytes arrays
+//    auto y_buffer = NULL;//readBytesFromFile("ypixel.bin");
+//    auto u_buffer = NULL;//readBytesFromFile("upixel.bin");
+//    auto v_buffer = NULL;//readBytesFromFile("vpixel.bin");
+//
+//
+//    cv::Mat y(actual_size, CV_8UC1, y_buffer.data());
+//    cv::Mat u(half_size, CV_8UC1, u_buffer.data());
+//    cv::Mat v(half_size, CV_8UC1, v_buffer.data());
+//
+//    cv::Mat u_resized, v_resized;
+//    cv::resize(u, u_resized, actual_size, 0, 0, cv::INTER_NEAREST); //repeat u values 4 times
+//    cv::resize(v, v_resized, actual_size, 0, 0, cv::INTER_NEAREST); //repeat v values 4 times
+//
+//    cv::Mat yuv;
+//
+//    std::vector<cv::Mat> yuv_channels = { y, u_resized, v_resized };
+//    cv::merge(yuv_channels, yuv);
+//
+//    cv::Mat bgr;
+//    cv::cvtColor(yuv, bgr, cv::COLOR_YUV2BGR);
+//    cv::imwrite("bgr.jpg", bgr);
+    // 读取存储YUV -> jpg end
+
+
+
+//    auto *yuv_buffer = new uint8_t[dstRGB.rows * dstRGB.cols * 3];
 //    auto *rgb = new unsigned char[dstRGB.rows * dstRGB.cols];
 //    if (dstRGB.isContinuous()) {
 //        rgb = dstRGB.data;
