@@ -3,6 +3,8 @@ package com.andforce.opencv.android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("hello_opencv");
+        System.loadLibrary("yuv-converter");
     }
 
     @Override
@@ -22,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(stringFromJNI());
+
+        Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/hua.jpg");
+
+        BitmapColorUtils.convertBitmap2YUV420SP(bitmap);
     }
 
     /**

@@ -259,10 +259,28 @@ void getTextFormImage(const String &filename,const String &backfilename) {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_andforce_opencv_android_BitmapColorUtils_convertBitmap2YUV420SP(JNIEnv *env, jclass clazz,
-        jobject src_bitmap) {
+                                                                         jobject src_bitmap) {
     Mat srcRGBA;
     BitmapToMat(env, src_bitmap, srcRGBA, CV_8UC4);
 
-    Mat srcRGB;
-    cvtColor(srcRGBA, srcRGB, COLOR_RGBA2RGB);
+    Mat dstRGB;
+    cvtColor(srcRGBA, dstRGB, COLOR_RGBA2RGB);
+
+    Mat mergedRGB;
+    vector<Mat> channels;
+    split(dstRGB, channels);
+    for (int i = 0; i < channels[0].rows; i++) {
+        for (int j = 0; j < channels[0].cols; j++) {
+            channels[0].at<uchar>(i, j) = 0;
+        }
+    }
+    merge(channels, mergedRGB);
+
+    imwrite("/sdcard/convertBitmap2YUV420SP.jpg", mergedRGB);
+
+//    auto *in_buffer = new uint8_t[dstRGB.rows * dstRGB.cols * 3];
+//    auto *rgb = new unsigned char[dstRGB.rows * dstRGB.cols];
+//    if (dstRGB.isContinuous()) {
+//        rgb = dstRGB.data;
+//    }
 }
