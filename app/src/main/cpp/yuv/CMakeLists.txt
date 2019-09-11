@@ -48,7 +48,12 @@ find_library( # Sets the name of the path variable.
         # you want CMake to locate.
         jnigraphics )
 
-
+#link_directories("${CMAKE_SOURCE_DIR}/../../../../native/3rdparty/libs/${ANDROID_ABI}/")
+#
+#set (LIBRARIES
+#        jpeg-turbo
+#        liblibjpeg-turbo.a
+#        )
 
 #add_library( # Sets the name of the library.
 #        native-lib
