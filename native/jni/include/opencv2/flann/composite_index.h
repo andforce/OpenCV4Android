@@ -31,7 +31,8 @@
 #ifndef OPENCV_FLANN_COMPOSITE_INDEX_H_
 #define OPENCV_FLANN_COMPOSITE_INDEX_H_
 
-#include "general.h"
+//! @cond IGNORED
+
 #include "nn_index.h"
 #include "kdtree_index.h"
 #include "kmeans_index.h"
@@ -79,7 +80,6 @@ public:
      * @param inputData dataset containing the points to index
      * @param params Index parameters
      * @param d Distance functor
-     * @return
      */
     CompositeIndex(const Matrix<ElementType>& inputData, const IndexParams& params = CompositeIndexParams(),
                    Distance d = Distance()) : index_params_(params)
@@ -190,5 +190,7 @@ private:
 };
 
 }
+
+//! @endcond
 
 #endif //OPENCV_FLANN_COMPOSITE_INDEX_H_

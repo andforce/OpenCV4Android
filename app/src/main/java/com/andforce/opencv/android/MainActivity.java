@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(stringFromJNI());
+        // 从Assets中读取图片，转成bitmap
+        Bitmap bitmap = AssetsUtils.getBitmapFromAssets(this.getApplication(), "flower.jpg");
 
-        Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/hua.jpg");
-
-        BitmapColorUtils.convertBitmap2YUV420SP(bitmap);
+        String path = Objects.requireNonNull(getExternalFilesDir("opencv")).getAbsolutePath();
+        BitmapColorUtils.convertBitmap2YUV420SP(bitmap, path);
     }
 
     /**

@@ -209,6 +209,10 @@ CVAPI(void)  cvCvtColor( const CvArr* src, CvArr* dst, int code );
 CVAPI(void)  cvResize( const CvArr* src, CvArr* dst,
                        int interpolation CV_DEFAULT( CV_INTER_LINEAR ));
 
+#ifdef _MSC_VER
+#pragma warning( push )
+#pragma warning( disable: 5054 )
+#endif
 /** @brief Warps image with affine transform
 @note ::cvGetQuadrangleSubPix is similar to ::cvWarpAffine, but the outliers are extrapolated using
 replication border mode.
@@ -272,6 +276,10 @@ CVAPI(void)  cvLogPolar( const CvArr* src, CvArr* dst,
 CVAPI(void)  cvLinearPolar( const CvArr* src, CvArr* dst,
                          CvPoint2D32f center, double maxRadius,
                          int flags CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS));
+
+#ifdef _MSC_VER
+#pragma warning( pop )
+#endif
 
 /** @brief Returns a structuring element of the specified size and shape for morphological operations.
 
@@ -1151,7 +1159,7 @@ CVAPI(CvScalar)  cvColorToScalar( double packed_color, int arrtype );
 /** @brief Returns the polygon points which make up the given ellipse.
 
 The ellipse is define by the box of size 'axes' rotated 'angle' around the 'center'. A partial
-sweep of the ellipse arc can be done by spcifying arc_start and arc_end to be something other than
+sweep of the ellipse arc can be done by specifying arc_start and arc_end to be something other than
 0 and 360, respectively. The input array 'pts' must be large enough to hold the result. The total
 number of points stored into 'pts' is returned by this function.
 @see cv::ellipse2Poly

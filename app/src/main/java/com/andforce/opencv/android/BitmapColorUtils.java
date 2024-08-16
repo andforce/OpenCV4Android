@@ -4,5 +4,5 @@ import android.graphics.Bitmap;
 
 public class BitmapColorUtils {
 
-    public static native void convertBitmap2YUV420SP(Bitmap srcBitmap);
+    public static native void convertBitmap2YUV420SP(Bitmap srcBitmap, String dirPath);
 }

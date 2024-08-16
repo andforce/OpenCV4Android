@@ -274,7 +274,7 @@ void getTextFormImage(const String &filename,const String &backfilename) {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_andforce_opencv_android_BitmapColorUtils_convertBitmap2YUV420SP(JNIEnv *env, jclass clazz,
-                                                                         jobject src_bitmap) {
+                                                                         jobject src_bitmap, jstring dir_path) {
     Mat srcRGBA;
     BitmapToMat(env, src_bitmap, srcRGBA, CV_8UC4);
 
@@ -315,11 +315,14 @@ Java_com_andforce_opencv_android_BitmapColorUtils_convertBitmap2YUV420SP(JNIEnv 
     Mat mergedRGB;
     merge(RGB_channels, mergedRGB);
 
-    imwrite("/sdcard/convertBitmap2YUV420SP.jpg", mergedRGB);
+    // 把图片存到 dir_path 中，名字是 convertBitmap2YUV420SP.jpg
+    String path = env->GetStringUTFChars(dir_path, 0);
+    imwrite(path + "/convertBitmap2YUV420SP.jpg", mergedRGB);
+//    imwrite("/sdcard/convertBitmap2YUV420SP.jpg", mergedRGB);
 
 
     cv::Mat img(imageWidth, imageHeight, CV_8UC3, yuv_buffer);
-    imwrite("/sdcard/convertBitmap2YUV420SP_420sp.jpg", img);
+    imwrite(path + "/convertBitmap2YUV420SP_420sp.jpg", img);
 
 
     // 读取存储YUV -> jpg
