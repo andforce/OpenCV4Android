@@ -1,12 +1,12 @@
 ![](https://repository-images.githubusercontent.com/188975362/fce2f300-d188-11e9-8267-57f67f941f51)
 
 # OpenCV4Android
-Use OpenCV 4.1.1 with Android Studio - https://opencv.org/android/
+Use OpenCV 4.10.0 with Android Studio - https://opencv.org/android/
 
-![](https://img.shields.io/badge/OpenCV-v4.1.1-red.svg)
-![](https://img.shields.io/badge/Android%20Studio-v3.5-blue.svg)
-![](https://img.shields.io/badge/Gradle-v5.4.1-blue.svg)
-![](https://img.shields.io/badge/Android%20Gradle%20Plugin-v3.5.0-blue.svg)
+![](https://img.shields.io/badge/OpenCV-v4.10.0-red.svg)
+![](https://img.shields.io/badge/Android%20Studio-v2024.1.1-blue.svg)
+![](https://img.shields.io/badge/Gradle-v7.5-blue.svg)
+![](https://img.shields.io/badge/Android%20Gradle%20Plugin-v7.4.2-blue.svg)
 
 Android Studio CMake - shared library missing libc++_shared.so? Can CMake bundle this?
 https://stackoverflow.com/questions/39620739/android-studio-cmake-shared-library-missing-libc-shared-so-can-cmake-bundle
