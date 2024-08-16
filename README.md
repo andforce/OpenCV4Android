@@ -12,7 +12,7 @@ Native OpenCV Library Sample for Android Studio - https://opencv.org/android/
 ## Upgrade OpenCV
 1. Download OpenCV Android SDK from https://opencv.org/releases/
 2. Extract the downloaded file: `unzip opencv-4.10.0-android-sdk.zip`
-3. Copy the extracted folder `OpenCV-android-sdk/sdk/native` to `native` directory than in the project.
+3. Copy the extracted folder `OpenCV-android-sdk/sdk/native` to `native` directory thant in the project.
 ![img.png](img.png)
 
 
